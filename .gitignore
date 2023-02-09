@@ -1,0 +1,10 @@
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
+
+node_modules/
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
+
+# End of https://mrkandreev.name/snippets/gitignore-generator/#CypressIO
