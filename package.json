@@ -4,14 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/json-server --static . data.json -m middleware.js --config json-server.json",
+    "build": "rollup -c",
+    "start": "http-server",
+    "test": "cypress run",
     "cypress:open": "cypress open",
-    "cypress-e2e": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:record": "cypress run --record --key"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/preset-env": "^7.13.12",
+    "@rollup/plugin-babel": "5.3.0",
     "cypress": "^12.5.1",
-    "json-server": "^0.17.1"
+    "http-server": "^14.1.1",
+    "rollup": "2.44.0"
   }
 }
