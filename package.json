@@ -4,18 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
-    "start": "http-server",
-    "test": "cypress run",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "cypress:record": "cypress run --record --key"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.5.1",
-    "http-server": "^14.1.1",
-    "rollup": "2.44.0"
+    "cypress": "^12.5.1"
   }
 }
