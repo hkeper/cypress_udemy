@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/json-server --static . data.json -m middleware.js --config json-server.json",
+    "cypress:open": "cypress open",
+    "cypress-e2e": "cypress run"
   },
   "author": "",
   "license": "ISC",
