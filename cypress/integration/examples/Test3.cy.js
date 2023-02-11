@@ -1,4 +1,6 @@
 ///<reference types="Cypress"/>
+///<reference types="cypress-iframe"/>
+import 'cypress-iframe'
 
 describe('Practice with web elements Suite', () => {
     
@@ -41,7 +43,7 @@ describe('Practice with web elements Suite', () => {
         cy.get('[value="radio2"]').check().should('be.checked')
     })
 
-    it.only("alerts windows", () => {
+    it("alerts windows", () => {
         cy.viewport(1280, 720)
         cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
         cy.get('#alertbtn').click()
@@ -54,7 +56,66 @@ describe('Practice with web elements Suite', () => {
         cy.on('window:confirm', (str) => {
             expect(str).to.equal('Hello , Are you sure you want to confirm?')
         })
+    })
 
+    it.only("separate tabs, windows, frames", () => {
+        //Cypress can't switch between tabs windows
+        cy.viewport(1280, 720)
+        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        
+        //Remove html attribute target, to open in the seme tab/window
+        // cy.get('#opentab').invoke('removeAttr', 'target').click()
+
+        // cy.url().should('include', 'www.rahulshettyacademy.com')
+        // cy.go('back')
+
+        //Get url from href attribute and open it
+        // cy.get('#opentab').then((el) => {
+        //     const tUrl = el.prop('href')
+        //     cy.visit(tUrl)
+        //     cy.url().should('contain', 'www.rahulshettyacademy.com')
+        //     cy.go('back')
+            //For different domain
+            // cy.origin('https://www.bbc.com/russian', () => {
+            //     cy.visit('https://www.bbc.com/russian')
+            //     cy.url().should('contain', 'bbc')
+            //     cy.go('back')
+            // })            
+        // })
+
+        //iFrames must to install package cypress-iframe
+        cy.frameLoaded('#courses-iframe')
+        cy.iframe().find('[href="mentorship"]').eq(0).click()
+        cy.wait(500)
+        cy.iframe().find("h1[class*='pricing-title']").should('have.length', 2)
+    })
+
+    it("tables", () => {
+        cy.viewport(1280, 720)
+        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        
+        cy.get('tr td:nth-child(2)').each(($el, index, list) =>{
+            const tdText = $el.text()
+            if(tdText.includes('Python')){
+                //next() works only with get()
+                cy.get('tr td:nth-child(2)').eq(index).next().then((price) => {
+                    var tPrice = price.text()
+                    expect(tPrice).to.equal("25")
+                })
+            }
+        })
+    })
+
+    it("click hidden elements, mouse over", () => {
+        cy.viewport(1280, 720)
+        cy.visit("https://rahulshettyacademy.com/AutomationPractice/")
+        
+        //Make element visible by jQuery function show()
+        //cy.get('div.mouse-hover-content').invoke('show')
+        //Force click on the hidden element
+        cy.contains('Top').click({force:true})
+        cy.url().should('include', '#top')
+        cy.get('div.mouse-hover-content').invoke('hide')
     })
 
 });
